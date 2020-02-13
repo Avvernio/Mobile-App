@@ -41,9 +41,14 @@ MapView map = null;
         super.onCreate(savedInstanceState);
 
         if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            Log.v(TAG, "Permission is granted");
+            Log.v(TAG, "Permission is granted for External Storage");
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Log.v(TAG, "Permission is granted for Fine Location");
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
         //handle permissions first, before map is created. not depicted here

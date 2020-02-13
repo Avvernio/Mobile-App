@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
 
         map = (MapView) root.findViewById(R.id.mapview);
         map.setTileSource(TileSourceFactory.USGS_TOPO);
+
         LocationManager locationManager = (LocationManager)
                 getActivity().getSystemService(Context.LOCATION_SERVICE);
 
@@ -42,15 +43,14 @@ public class HomeFragment extends Fragment {
         }
         try {
             Location gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(gps_loc != null) {
-                GeoPoint point = new GeoPoint(gps_loc);
-                map.getController().animateTo(point);
-            }
+
+            GeoPoint point = new GeoPoint(gps_loc);
+            map.getController().setCenter(point);
+            map.getController().animateTo(point);
+
         }catch(SecurityException e){
-//            Log.v(e.toString());
+            Log.v("msg Error", e.toString());
         }
-
-
         return root;
     }
 

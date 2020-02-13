@@ -37,18 +37,10 @@ public class NotificationsFragment extends Fragment {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-//        final TextView textView = root.findViewById(R.id.text_notifications);
-//        notificationsViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
         final TextView txt = (TextView)root.findViewById(R.id.text_notifications);
         RequestQueue rq = Volley.newRequestQueue(getActivity().getApplicationContext());
         String url= "http://cdn.knmi.nl/knmi/map/page/seismologie/all_tectonic.json";
-        Log.v("msg", url);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -58,9 +50,7 @@ public class NotificationsFragment extends Fragment {
                         // Do something with the response
 
                         try{
-                            Log.v("msg", "test before json");
                             JSONObject o = new JSONObject(response);
-                            Log.v("msg", o.toString());
                             JSONArray values=o.getJSONArray("events");
 
                             for ( int i=0; i <= 29; i++) {
@@ -83,8 +73,6 @@ public class NotificationsFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Handle error
-                        Log.v("msg", error.toString());
-
                     }
                 });
         rq.add(stringRequest);
